@@ -9,6 +9,7 @@ const redis = new Redis({
 });
 
 app.get('/', async (req, res) => {
+    console.log('incoming request');
     res.status(200).json({
         greet: `Hi everyone, thanks for joining docker --share.`,
         redis_ping: await redis.ping(),
