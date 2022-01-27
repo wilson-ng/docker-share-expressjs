@@ -1,9 +1,18 @@
 const express = require('express');
+const Redis = require('ioredis');
 const app = express();
 const port = 3000;
 
-app.get('/', (req, res) => {
-    res.send('Hi everyone, thanks for joining docker --share, hosted on container.');
+const redis = new Redis({
+    host: 'redis',
+    port: 6379,
+});
+
+app.get('/', async (req, res) => {
+    res.status(200).json({
+        greet: `Hi everyone, thanks for joining docker --share.`,
+        redis_ping: await redis.ping(),
+    });
 });
 
 app.listen(port, () => {
